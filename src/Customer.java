@@ -1,17 +1,20 @@
 public class Customer {
-    String customerName, customerEmail, customerAddress, customerGender, customerAadhar, customerPhone;
-    float balance;
-
-
-    public Customer(String customerName, String customerEmail, String customerAddress, String customerGender, String customerAadhar, String customerPhone, float balance) {
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.customerAddress = customerAddress;
-        this.customerGender = customerGender;
-        this.customerAadhar = customerAadhar;
-        this.customerPhone = customerPhone;
-        this.balance = balance;
+    String customerName, customerEmail, customerAddress, customerGender, customerAadhaar, customerPhone;
+    float balance=0.0f;
+    int customerAadhar = 000000000000;
+    public Customer(int aadhar){
+        this.customerAadhar = aadhar;
     }
+
+//    public Customer(String customerName, String customerEmail, String customerAddress, String customerGender, String customerAadhar, String customerPhone, float balance) {
+//        this.customerName = customerName;
+//        this.customerEmail = customerEmail;
+//        this.customerAddress = customerAddress;
+//        this.customerGender = customerGender;
+//        this.customerAadhar = customerAadhar;
+//        this.customerPhone = customerPhone;
+//        this.balance = balance;
+//    }
 
     public String getCustomerName() {
         return customerName;
@@ -46,11 +49,11 @@ public class Customer {
     }
 
     public String getCustomerAadhar() {
-        return customerAadhar;
+        return customerAadhaar;
     }
 
     public void setCustomerAadhar(String customerAadhar) {
-        this.customerAadhar = customerAadhar;
+        this.customerAadhaar = customerAadhar;
     }
 
     public String getCustomerPhone() {

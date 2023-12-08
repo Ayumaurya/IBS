@@ -8,11 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HDFC implements RBI {
+//    Customer customerobj = new Customer();
 
+    HashMap<Integer, Customer> bankCustomer = new HashMap<>();
 
-    float balance = 1000.0f;
+    HDFC b = new HDFC();
+
+    util u = new util();
+    float balance = 0.0f;
 
     int withdrawCount = 0;
+
+    int bankID = 01;
 
     InputStreamReader val;
     BufferedReader buff;
@@ -23,8 +30,33 @@ public class HDFC implements RBI {
             buff = new BufferedReader(val);
     }
 
+
+
     @Override
-    public void deposit() {
+    public void validateAadhar(){
+        int aadhar = 000000000000;
+        System.out.print("Please enter your 12-digit aadhar number:\n");
+        try {
+            aadhar = Integer.parseInt(buff.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        if(bankCustomer.containsKey(aadhar+bankID)){
+            Customer c = bankCustomer.get(aadhar+bankID);
+            u.operations(b,c);
+        }
+        else{
+            Customer c = new Customer(aadhar);
+            bankCustomer.put(aadhar+bankID, c);
+            u.operations(b,c);
+        }
+
+
+    }
+    @Override
+    public void deposit(Customer c) {
         System.out.println("Please enter amount: ");
         float amt=0;
         try{
@@ -32,12 +64,12 @@ public class HDFC implements RBI {
         }catch(IOException e){
             e.printStackTrace();
         }
-        balance += amt;
-        System.out.print("Amount deposited successfully!\n Your current balance is: " + balance +"\n");
+        c.balance += amt;
+        System.out.print("Amount deposited successfully!\n Your current balance is: " + c.balance +"\n");
     }
 
     @Override
-    public void withdraw() {
+    public void withdraw(Customer c) {
         System.out.println("Please enter amount: ");
         float amt=0;
         try{
@@ -47,16 +79,16 @@ public class HDFC implements RBI {
         }
         if(amt > 0){
             if(withdrawCount<3){
-                if(balance-amt>1000){
-                    balance -= amt;
-                    System.out.print("Operation successful!\n Your current balance is: " + balance +"\n");
+                if(c.balance-amt>1000){
+                    c.balance -= amt;
+                    System.out.print("Operation successful!\n Your current balance is: " + c.balance +"\n");
                 }
                 else System.out.print("Operation unsuccessful!\n Insufficient Balance.\n");
             }
             else{
-                if(balance-(amt+amt*.01)>1000){
-                    balance -= (amt*.01);
-                    System.out.print("Withdraw successful!\n Your current balance is: " + balance +"\n");
+                if(c.balance-(amt+amt*.01)>1000){
+                    c.balance -= (amt*.01);
+                    System.out.print("Withdraw successful!\n Your current balance is: " + c.balance +"\n");
                 }
                 else System.out.print("Operation unsuccessful!\n Insufficient Balance.\n");
             }
@@ -67,7 +99,7 @@ public class HDFC implements RBI {
     }
 
     @Override
-    public void openFD() {
+    public void openFD(Customer c) {
         float amt=0, ROI=6;
         int years=0;
         System.out.println("Please enter amount: ");
@@ -90,7 +122,7 @@ public class HDFC implements RBI {
     }
 
     @Override
-    public void applyLoan() {
+    public void applyLoan(Customer c) {
         HashMap<String, Float> loanTypes = new HashMap<>();
         loanTypes.put("HOME", 6f);
         loanTypes.put("EDUCATION", 3f);
@@ -118,7 +150,7 @@ public class HDFC implements RBI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (amt < balance * 2) {
+            if (amt < c.balance * 2) {
                 System.out.print("Sorry! You are not eligible for loan.\n");
             } else {
                 System.out.println("Please enter years: ");
@@ -135,7 +167,7 @@ public class HDFC implements RBI {
     }
 
     @Override
-    public void applyCC() {
+    public void applyCC(Customer c) {
         float amt=0, ROI=12;
         int years=0;
         System.out.println("Please enter amount: ");
@@ -144,7 +176,7 @@ public class HDFC implements RBI {
         }catch(IOException e){
             e.printStackTrace();
         }
-        if(amt < balance*2) {
+        if(amt < c.balance*2) {
             System.out.print("Sorry! You are not eligible for Credit Card.\n");
         }
         else System.out.print("congratulations! You are eligible for Credit Card.\n");

@@ -12,9 +12,12 @@ public class Main {
     ArrayList<String> bankOptions = new ArrayList<String>(Arrays.asList("ICICI", "HDFC", "SBI", "AXIS"));
     ArrayList<String> operationOptions = new ArrayList<String>(Arrays.asList("Deposit", "Withdraw", "Open FD", "Apply Loan", "Apply CC"));
 
-    int selectedBank, selectedOpr;
+    int selectedBank;
     InputStreamReader val;
     BufferedReader buff;
+
+
+
 
     public Main() {
         if (val == null)
@@ -23,8 +26,14 @@ public class Main {
             buff = new BufferedReader(val);
     }
 
+
+
     public static void main(String[] args) {
         Main obj = new Main();
+        HDFC mHDFC = new HDFC();
+        ICICI mICICI = new ICICI();
+        SBI mSBI = new SBI();
+        AXIS mAXIS = new AXIS();
         System.out.print("Welcome to IBS!\n");
         for (int i = 0; i < obj.bankOptions.size(); i++) {
             System.out.println(Integer.toString(i + 1) + ". " + obj.bankOptions.get(i));
@@ -37,50 +46,23 @@ public class Main {
         }
         System.out.print("you selected option " + obj.selectedBank);
 
-        RBI objBank = null;  // Accessing RBI class
+//        RBI objBank = null;  // Accessing RBI class
         switch (obj.selectedBank) {
             case 1:
-                objBank = new ICICI();
+                mICICI.validateAadhar();
                 break;
             case 2:
-                objBank = new HDFC();
+                mHDFC.validateAadhar();
                 break;
             case 3:
-                objBank = new SBI();
+                mSBI.validateAadhar();
                 break;
             case 4:
-                objBank = new AXIS();
+                mAXIS.validateAadhar();
                 break;
             default:
                 System.out.println("Invalid Input!");
         }
-        while (true) {
-            System.out.print("\n1. Deposit\n2. Withdraw\n3. Open FD\n4. Apply Loan\n5. Apply CC\n6. Exit.\n");
-            try {
-                obj.selectedOpr = Integer.parseInt(obj.buff.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.print("you selected option " + obj.selectedOpr + "\n");
-            switch (obj.selectedOpr) {
-                case 1:
-                    objBank.deposit();
-                    break;
-                case 2:
-                    objBank.withdraw();
-                    break;
-                case 3:
-                    objBank.openFD();
-                    break;
-                case 4:
-                    objBank.applyLoan();
-                    break;
-                case 5:
-                    objBank.applyCC();
-                    break;
-                default:
-                    return ;
-            }
-        }
+
     }
 }
