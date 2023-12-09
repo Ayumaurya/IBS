@@ -10,13 +10,16 @@ import java.lang.Object;
 public class Main {
 
     ArrayList<String> bankOptions = new ArrayList<String>(Arrays.asList("ICICI", "HDFC", "SBI", "AXIS"));
-    ArrayList<String> operationOptions = new ArrayList<String>(Arrays.asList("Deposit", "Withdraw", "Open FD", "Apply Loan", "Apply CC"));
+//    ArrayList<String> operationOptions = new ArrayList<String>(Arrays.asList("Deposit", "Withdraw", "Open FD", "Apply Loan", "Apply CC"));
 
     int selectedBank;
     InputStreamReader val;
     BufferedReader buff;
 
-
+    HDFC mHDFC = new HDFC();
+    SBI mSBI = new SBI();
+    ICICI mICICI = new ICICI();
+    AXIS mAXIS = new AXIS();
 
 
     public Main() {
@@ -27,42 +30,13 @@ public class Main {
     }
 
 
-
+    util u = new util();
     public static void main(String[] args) {
         Main obj = new Main();
-        HDFC mHDFC = new HDFC();
-        ICICI mICICI = new ICICI();
-        SBI mSBI = new SBI();
-        AXIS mAXIS = new AXIS();
-        System.out.print("Welcome to IBS!\n");
-        for (int i = 0; i < obj.bankOptions.size(); i++) {
-            System.out.println(Integer.toString(i + 1) + ". " + obj.bankOptions.get(i));
-        }
-
-        try {
-            obj.selectedBank = Integer.parseInt(obj.buff.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.print("you selected option " + obj.selectedBank);
-
-//        RBI objBank = null;  // Accessing RBI class
-        switch (obj.selectedBank) {
-            case 1:
-                mICICI.validateAadhar();
-                break;
-            case 2:
-                mHDFC.validateAadhar();
-                break;
-            case 3:
-                mSBI.validateAadhar();
-                break;
-            case 4:
-                mAXIS.validateAadhar();
-                break;
-            default:
-                System.out.println("Invalid Input!");
-        }
-
+            while(true){
+               obj.u.bankPage(obj.mHDFC, obj.mSBI, obj.mICICI, obj.mAXIS);
+            }
     }
+
+
 }

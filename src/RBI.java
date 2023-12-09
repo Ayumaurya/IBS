@@ -4,5 +4,5 @@ public interface RBI{
     void openFD(Customer c);
     void applyLoan(Customer c);
     void applyCC(Customer c);
-    void validateAadhar();
+    void validateAadhar(HDFC mHDFC, SBI mSBI, ICICI mICICI, AXIS mAXIS);
 }

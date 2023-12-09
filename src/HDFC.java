@@ -12,14 +12,14 @@ public class HDFC implements RBI {
 
     HashMap<Integer, Customer> bankCustomer = new HashMap<>();
 
-    HDFC b = new HDFC();
+//    HDFC b = new HDFC();  THROWS ERROR
 
     util u = new util();
     float balance = 0.0f;
 
     int withdrawCount = 0;
 
-    int bankID = 01;
+    int bankID = 0;
 
     InputStreamReader val;
     BufferedReader buff;
@@ -33,9 +33,9 @@ public class HDFC implements RBI {
 
 
     @Override
-    public void validateAadhar(){
-        int aadhar = 000000000000;
-        System.out.print("Please enter your 12-digit aadhar number:\n");
+    public void validateAadhar(HDFC b, SBI mSBI, ICICI mICICI, AXIS mAXIS){
+        int aadhar = 0;
+        System.out.print("Welcome to HDFC.\n Please enter last 4-digit of your aadhar number:\n");
         try {
             aadhar = Integer.parseInt(buff.readLine());
         } catch (IOException e) {
@@ -45,12 +45,12 @@ public class HDFC implements RBI {
 
         if(bankCustomer.containsKey(aadhar+bankID)){
             Customer c = bankCustomer.get(aadhar+bankID);
-            u.operations(b,c);
+            u.operations(b,c, b, mSBI, mICICI, mAXIS);
         }
         else{
             Customer c = new Customer(aadhar);
             bankCustomer.put(aadhar+bankID, c);
-            u.operations(b,c);
+            u.operations(b,c, b,  mSBI,  mICICI,  mAXIS);
         }
 
 

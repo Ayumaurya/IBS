@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class util{
 
@@ -8,6 +10,15 @@ public class util{
     boolean flag = false;
     InputStreamReader val;
     BufferedReader buff;
+
+    int selectedBank;
+    ArrayList<String> bankOptions = new ArrayList<String>(Arrays.asList("ICICI", "HDFC", "SBI", "AXIS"));
+
+//    HDFC mHDFC=null;
+//    SBI mSBI=null;
+//    ICICI mICICI=null;
+//    AXIS mAXIS=null;
+//    Main m = new Main();
     public util() {
         if (val == null)
             val = new InputStreamReader(System.in);
@@ -15,14 +26,14 @@ public class util{
             buff = new BufferedReader(val);
     }
 
-    public void cont(){
+    public void cont(HDFC mHDFC, SBI mSBI, ICICI mICICI, AXIS mAXIS){
         System.out.println("Do you want to continue:\n1. Yes\n2. No");
         try {
             int x = Integer.parseInt(buff.readLine());
             if(x==1)
                 flag = true;
             else if(x==2)
-                flag = true;
+                bankPage(mHDFC, mSBI, mICICI, mAXIS);  // accessing bankoptions
             else
                 System.out.println("Invalid Input!");
         } catch (IOException e) {
@@ -30,7 +41,7 @@ public class util{
         }
     }
 
-    public void operations(RBI b, Customer c){
+    public void operations(RBI b, Customer c, HDFC mHDFC, SBI mSBI, ICICI mICICI, AXIS mAXIS){
         do{
             System.out.print("\n1. Deposit\n2. Withdraw\n3. Open FD\n4. Apply Loan\n5. Apply CC\n6. Exit.\n");
             try {
@@ -42,28 +53,61 @@ public class util{
             switch (selectedOpr) {
                 case 1:
                     b.deposit(c);
-                    cont();
+                    cont( mHDFC,  mSBI,  mICICI,  mAXIS);
                     break;
                 case 2:
                     b.withdraw(c);
-                    cont();
+                    cont( mHDFC,  mSBI,  mICICI,  mAXIS);
                     break;
                 case 3:
                     b.openFD(c);
-                    cont();
+                    cont( mHDFC,  mSBI,  mICICI,  mAXIS);
                     break;
                 case 4:
                     b.applyLoan(c);
-                    cont();
+                    cont( mHDFC,  mSBI,  mICICI,  mAXIS);
                     break;
                 case 5:
                     b.applyCC(c);
-                    cont();
+                    cont( mHDFC,  mSBI,  mICICI,  mAXIS);
                     break;
                 default:
-                    return ;
+                    bankPage(mHDFC, mSBI, mICICI, mAXIS);
             }
         }while (flag);
+    }
+
+
+    public void bankPage(HDFC mHDFC, SBI mSBI, ICICI mICICI, AXIS mAXIS){
+        System.out.print("Welcome to IBS!\n");
+        for (int i = 0; i < bankOptions.size(); i++) {
+            System.out.println(Integer.toString(i + 1) + ". " + bankOptions.get(i));
+        }
+
+        try {
+            selectedBank = Integer.parseInt(buff.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.print("you selected option " + selectedBank);
+
+//        RBI objBank = null;  // Accessing RBI class
+        switch (selectedBank) {
+            case 1:
+                mICICI.validateAadhar(mHDFC, mSBI, mICICI, mAXIS);
+                break;
+            case 2:
+                mHDFC.validateAadhar(mHDFC, mSBI, mICICI, mAXIS);
+                break;
+            case 3:
+                mSBI.validateAadhar(mHDFC, mSBI, mICICI, mAXIS);
+                break;
+            case 4:
+                mAXIS.validateAadhar(mHDFC, mSBI, mICICI, mAXIS);
+                break;
+            default:
+                System.out.println("Invalid Input!");
+        }
     }
 
 }
