@@ -35,7 +35,7 @@ public class AXIS implements RBI {
     @Override
     public void validateAadhar(HDFC mHDFC, SBI mSBI, ICICI mICICI, AXIS b){
         int aadhar = 0;
-        System.out.print("Welcome to SBI.\n Please enter last 4-digit of your aadhar number:\n");
+        System.out.print("Welcome to AXIS.\n Please enter last 4-digit of your aadhar number:\n");
         try {
             aadhar = Integer.parseInt(buff.readLine());
         } catch (IOException e) {

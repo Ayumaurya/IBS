@@ -12,7 +12,7 @@ public class util{
     BufferedReader buff;
 
     int selectedBank;
-    ArrayList<String> bankOptions = new ArrayList<String>(Arrays.asList("ICICI", "HDFC", "SBI", "AXIS"));
+    ArrayList<String> bankOptions = new ArrayList<String>(Arrays.asList("ICICI", "HDFC", "SBI", "AXIS", "Show Customer Counts"));
 
 //    HDFC mHDFC=null;
 //    SBI mSBI=null;
@@ -89,7 +89,7 @@ public class util{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print("you selected option " + selectedBank);
+        System.out.print("you selected option " + selectedBank+"\n");
 
 //        RBI objBank = null;  // Accessing RBI class
         switch (selectedBank) {
@@ -104,6 +104,9 @@ public class util{
                 break;
             case 4:
                 mAXIS.validateAadhar(mHDFC, mSBI, mICICI, mAXIS);
+                break;
+            case 5:
+                System.out.println("ICICI: "+mICICI.bankCustomer.size()+".\n"+"SBI: "+mSBI.bankCustomer.size()+".\n"+"AXIS: "+mAXIS.bankCustomer.size()+".\n"+"HDFC: "+mHDFC.bankCustomer.size()+".\n");
                 break;
             default:
                 System.out.println("Invalid Input!");
