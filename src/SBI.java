@@ -10,7 +10,7 @@ import java.util.Map;
 public class SBI implements RBI {
 //    Customer customerobj = new Customer();
 
-    HashMap<Integer, Customer> bankCustomer = new HashMap<>();
+    HashMap<String, Customer> bankCustomer = new HashMap<>();
 
 //    HDFC b = new HDFC();  THROWS ERROR
 
@@ -19,7 +19,7 @@ public class SBI implements RBI {
 
     int withdrawCount = 0;
 
-    int bankID = 1;
+    String bankID = "_SBI";
 
     InputStreamReader val;
     BufferedReader buff;
@@ -34,10 +34,10 @@ public class SBI implements RBI {
 
     @Override
     public void validateAadhar(HDFC mHDFC, SBI b, ICICI mICICI, AXIS mAXIS){
-        int aadhar = 0;
+        String aadhar = "";
         System.out.print("Welcome to SBI.\n Please enter last 4-digit of your aadhar number:\n");
         try {
-            aadhar = Integer.parseInt(buff.readLine());
+            aadhar = buff.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

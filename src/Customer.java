@@ -1,8 +1,8 @@
 public class Customer {
     String customerName, customerEmail, customerAddress, customerGender, customerAadhaar, customerPhone;
     float balance=0.0f;
-    int customerAadhar = 0000;
-    public Customer(int aadhar){
+    String customerAadhar = "";
+    public Customer(String aadhar){
         this.customerAadhar = aadhar;
     }
 

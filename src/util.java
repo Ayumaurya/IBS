@@ -107,7 +107,7 @@ public class util{
                 break;
             case 5:
                 System.out.println("ICICI: "+mICICI.bankCustomer.size()+".\n"+"SBI: "+mSBI.bankCustomer.size()+".\n"+"AXIS: "+mAXIS.bankCustomer.size()+".\n"+"HDFC: "+mHDFC.bankCustomer.size()+".\n");
-                break;
+                bankPage(mHDFC, mSBI, mICICI, mAXIS);
             default:
                 System.out.println("Invalid Input!");
         }
