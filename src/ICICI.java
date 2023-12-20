@@ -6,6 +6,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class ICICI implements RBI {
 //    Customer customerobj = new Customer();
@@ -35,7 +36,7 @@ public class ICICI implements RBI {
     @Override
     public void validateAadhar(HDFC mHDFC, SBI mSBI, ICICI b, AXIS mAXIS){
         String aadhar = "";
-        System.out.print("Welcome to ICICI.\n Please enter last 4-digit of your aadhar number:\n");
+        Main.getLogger().log(Level.INFO,"Welcome to ICICI.\n Please enter last 4-digit of your aadhar number:\n");
         try {
             aadhar = buff.readLine();
         } catch (IOException e) {
@@ -57,7 +58,7 @@ public class ICICI implements RBI {
     }
     @Override
     public void deposit(Customer c) {
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         float amt=0;
         try{
             amt = Integer.parseInt(buff.readLine());
@@ -65,12 +66,12 @@ public class ICICI implements RBI {
             e.printStackTrace();
         }
         c.balance += amt;
-        System.out.print("Amount deposited successfully!\n Your current balance is: " + c.balance +"\n");
+        Main.getLogger().log(Level.INFO,"Amount deposited successfully!\n Your current balance is: " + c.balance +"\n");
     }
 
     @Override
     public void withdraw(Customer c) {
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         float amt=0;
         try{
             amt = Integer.parseInt(buff.readLine());
@@ -102,13 +103,13 @@ public class ICICI implements RBI {
     public void openFD(Customer c) {
         float amt=0, ROI=6;
         int years=0;
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         try{
             amt = Integer.parseInt(buff.readLine());
         }catch(IOException e){
             e.printStackTrace();
         }
-        System.out.println("Please enter years: ");
+        Main.getLogger().log(Level.INFO,"Please enter years: ");
         try{
             years = Integer.parseInt(buff.readLine());
         }catch(IOException e){
@@ -129,7 +130,7 @@ public class ICICI implements RBI {
         loanTypes.put("PERSONAL", 8f);
         loanTypes.put("CAR", 9f);
         ArrayList<String> loanTypeArray = new ArrayList<>();
-        System.out.println("Please select loan type: ");
+        Main.getLogger().log(Level.INFO,"Please select loan type: ");
         loanTypes.forEach((key, value)->{
             loanTypeArray.add(key);
         });
@@ -144,7 +145,7 @@ public class ICICI implements RBI {
             e.printStackTrace();
         }
         if(loanType>0 && loanType<loanTypes.size()) {
-            System.out.println("You selected " + loanTypeArray.get(loanType - 1) + " Loan.\nPlease enter amount: ");
+            Main.getLogger().log(Level.INFO,"You selected " + loanTypeArray.get(loanType - 1) + " Loan.\nPlease enter amount: ");
             try {
                 amt = Integer.parseInt(buff.readLine());
             } catch (IOException e) {
@@ -153,7 +154,7 @@ public class ICICI implements RBI {
             if (amt < c.balance * 2) {
                 System.out.print("Sorry! You are not eligible for loan.\n");
             } else {
-                System.out.println("Please enter years: ");
+                Main.getLogger().log(Level.INFO,"Please enter years: ");
                 try {
                     years = Integer.parseInt(buff.readLine());
                 } catch (IOException e) {
@@ -163,22 +164,22 @@ public class ICICI implements RBI {
                 System.out.print("Your interest on loan of amount " + amt + "for " + years + " years will be: " + interest + ".\n");
             }
         }
-        else System.out.println("Invalid Input!");
+        else Main.getLogger().log(Level.INFO,"Invalid Input!");
     }
 
     @Override
     public void applyCC(Customer c) {
         float amt=0, ROI=12;
         int years=0;
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         try{
             amt = Integer.parseInt(buff.readLine());
         }catch(IOException e){
             e.printStackTrace();
         }
         if(amt < c.balance*2) {
-            System.out.print("Sorry! You are not eligible for Credit Card.\n");
+            Main.getLogger().log(Level.INFO,"Sorry! You are not eligible for Credit Card.\n");
         }
-        else System.out.print("congratulations! You are eligible for Credit Card.\n");
+        else Main.getLogger().log(Level.INFO,"congratulations! You are eligible for Credit Card.\n");
     }
 }

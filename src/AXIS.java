@@ -6,6 +6,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class AXIS implements RBI {
 //    Customer customerobj = new Customer();
@@ -35,7 +36,7 @@ public class AXIS implements RBI {
     @Override
     public void validateAadhar(HDFC mHDFC, SBI mSBI, ICICI mICICI, AXIS b){
         String aadhar = "";
-        System.out.print("Welcome to AXIS.\n Please enter last 4-digit of your aadhar number:\n");
+        Main.getLogger().log(Level.INFO,"Welcome to AXIS.\n Please enter last 4-digit of your aadhar number:\n");
         try {
             aadhar = buff.readLine();
         } catch (IOException e) {
@@ -57,7 +58,7 @@ public class AXIS implements RBI {
     }
     @Override
     public void deposit(Customer c) {
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         float amt=0;
         try{
             amt = Integer.parseInt(buff.readLine());
@@ -65,12 +66,12 @@ public class AXIS implements RBI {
             e.printStackTrace();
         }
         c.balance += amt;
-        System.out.print("Amount deposited successfully!\n Your current balance is: " + c.balance +"\n");
+        Main.getLogger().log(Level.INFO,"Amount deposited successfully!\n Your current balance is: " + c.balance +"\n");
     }
 
     @Override
     public void withdraw(Customer c) {
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         float amt=0;
         try{
             amt = Integer.parseInt(buff.readLine());
@@ -81,20 +82,20 @@ public class AXIS implements RBI {
             if(withdrawCount<3){
                 if(c.balance-amt>1000){
                     c.balance -= amt;
-                    System.out.print("Operation successful!\n Your current balance is: " + c.balance +"\n");
+                    Main.getLogger().log(Level.INFO,"Operation successful!\n Your current balance is: " + c.balance +"\n");
                 }
-                else System.out.print("Operation unsuccessful!\n Insufficient Balance.\n");
+                else Main.getLogger().log(Level.INFO,"Operation unsuccessful!\n Insufficient Balance.\n");
             }
             else{
                 if(c.balance-(amt+amt*.01)>1000){
                     c.balance -= (amt*.01);
-                    System.out.print("Withdraw successful!\n Your current balance is: " + c.balance +"\n");
+                    Main.getLogger().log(Level.INFO,"Withdraw successful!\n Your current balance is: " + c.balance +"\n");
                 }
-                else System.out.print("Operation unsuccessful!\n Insufficient Balance.\n");
+                else Main.getLogger().log(Level.INFO,"Operation unsuccessful!\n Insufficient Balance.\n");
             }
         }
         else{
-            System.out.print("Invalid Input!\n");
+            Main.getLogger().log(Level.INFO,"Invalid Input!\n");
         }
     }
 
@@ -102,13 +103,13 @@ public class AXIS implements RBI {
     public void openFD(Customer c) {
         float amt=0, ROI=6;
         int years=0;
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         try{
             amt = Integer.parseInt(buff.readLine());
         }catch(IOException e){
             e.printStackTrace();
         }
-        System.out.println("Please enter years: ");
+        Main.getLogger().log(Level.INFO,"Please enter years: ");
         try{
             years = Integer.parseInt(buff.readLine());
         }catch(IOException e){
@@ -116,9 +117,9 @@ public class AXIS implements RBI {
         }
         for(int i=1; i<years; i++){
             amt += amt * ROI/100;
-            System.out.print("Your Interest for year "+i+" will be: "+ amt+".\n");
+            Main.getLogger().log(Level.INFO,"Your Interest for year "+i+" will be: "+ amt+".\n");
         }
-        System.out.print("Your Final Amount after "+ years + " years will be: "+ val+".\n");
+        Main.getLogger().log(Level.INFO,"Your Final Amount after "+ years + " years will be: "+ val+".\n");
     }
 
     @Override
@@ -144,41 +145,41 @@ public class AXIS implements RBI {
             e.printStackTrace();
         }
         if(loanType>0 && loanType<loanTypes.size()) {
-            System.out.println("You selected " + loanTypeArray.get(loanType - 1) + " Loan.\nPlease enter amount: ");
+            Main.getLogger().log(Level.INFO,"You selected " + loanTypeArray.get(loanType - 1) + " Loan.\nPlease enter amount: ");
             try {
                 amt = Integer.parseInt(buff.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (amt < c.balance * 2) {
-                System.out.print("Sorry! You are not eligible for loan.\n");
+                Main.getLogger().log(Level.INFO,"Sorry! You are not eligible for loan.\n");
             } else {
-                System.out.println("Please enter years: ");
+                Main.getLogger().log(Level.INFO,"Please enter years: ");
                 try {
                     years = Integer.parseInt(buff.readLine());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 float interest = amt * (float) Math.pow(1 + loanTypes.get(loanTypeArray.get(loanType - 1)) / 100, years);
-                System.out.print("Your interest on loan of amount " + amt + "for " + years + " years will be: " + interest + ".\n");
+                Main.getLogger().log(Level.INFO,"Your interest on loan of amount " + amt + "for " + years + " years will be: " + interest + ".\n");
             }
         }
-        else System.out.println("Invalid Input!");
+        else Main.getLogger().log(Level.INFO,"Invalid Input!");
     }
 
     @Override
     public void applyCC(Customer c) {
         float amt=0, ROI=12;
         int years=0;
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         try{
             amt = Integer.parseInt(buff.readLine());
         }catch(IOException e){
             e.printStackTrace();
         }
         if(amt < c.balance*2) {
-            System.out.print("Sorry! You are not eligible for Credit Card.\n");
+            Main.getLogger().log(Level.INFO,"Sorry! You are not eligible for Credit Card.\n");
         }
-        else System.out.print("congratulations! You are eligible for Credit Card.\n");
+        else Main.getLogger().log(Level.INFO,"congratulations! You are eligible for Credit Card.\n");
     }
 }

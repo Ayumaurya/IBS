@@ -6,6 +6,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class HDFC implements RBI {
 //    Customer customerobj = new Customer();
@@ -129,7 +130,7 @@ public class HDFC implements RBI {
         loanTypes.put("PERSONAL", 8f);
         loanTypes.put("CAR", 9f);
         ArrayList<String> loanTypeArray = new ArrayList<>();
-        System.out.println("Please select loan type: ");
+        Main.getLogger().log(Level.INFO,"Please select loan type: ");
         loanTypes.forEach((key, value)->{
             loanTypeArray.add(key);
         });
@@ -144,7 +145,7 @@ public class HDFC implements RBI {
             e.printStackTrace();
         }
         if(loanType>0 && loanType<loanTypes.size()) {
-            System.out.println("You selected " + loanTypeArray.get(loanType - 1) + " Loan.\nPlease enter amount: ");
+            Main.getLogger().log(Level.INFO,"You selected " + loanTypeArray.get(loanType - 1) + " Loan.\nPlease enter amount: ");
             try {
                 amt = Integer.parseInt(buff.readLine());
             } catch (IOException e) {
@@ -153,7 +154,7 @@ public class HDFC implements RBI {
             if (amt < c.balance * 2) {
                 System.out.print("Sorry! You are not eligible for loan.\n");
             } else {
-                System.out.println("Please enter years: ");
+                Main.getLogger().log(Level.INFO,"Please enter years: ");
                 try {
                     years = Integer.parseInt(buff.readLine());
                 } catch (IOException e) {
@@ -163,14 +164,14 @@ public class HDFC implements RBI {
                 System.out.print("Your interest on loan of amount " + amt + "for " + years + " years will be: " + interest + ".\n");
             }
         }
-        else System.out.println("Invalid Input!");
+        else Main.getLogger().log(Level.INFO,"Invalid Input!");
     }
 
     @Override
     public void applyCC(Customer c) {
         float amt=0, ROI=12;
         int years=0;
-        System.out.println("Please enter amount: ");
+        Main.getLogger().log(Level.INFO,"Please enter amount: ");
         try{
             amt = Integer.parseInt(buff.readLine());
         }catch(IOException e){

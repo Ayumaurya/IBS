@@ -4,11 +4,23 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Object;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main implements Runnable {
     Main obj=null;
+
+    // get logger
+    static LogManager lgmngr = LogManager.getLogManager();
+    static Logger log;
+    public static Logger getLogger(){
+        if(log == null)
+            log = lgmngr.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        return log;
+    }
+
 
     ArrayList<String> bankOptions = new ArrayList<String>(Arrays.asList("ICICI", "HDFC", "SBI", "AXIS"));
 //    ArrayList<String> operationOptions = new ArrayList<String>(Arrays.asList("Deposit", "Withdraw", "Open FD", "Apply Loan", "Apply CC"));
@@ -34,10 +46,9 @@ public class Main implements Runnable {
     util u = new util();
     public static void main(String[] args) {
         Main obj1=new Main();
-        obj1.obj=obj1.getInstance(obj1);
+        obj1.obj=obj1.getInstance(obj1);    //used this bcz object main is used in run() method
         Thread t1=new Thread(obj1);
         t1.start();
-
     }
     public Main getInstance(Main obj){return obj;}
 
